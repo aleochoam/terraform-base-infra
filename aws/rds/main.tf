@@ -1,7 +1,7 @@
 # Create the database
 # TODO: Remove hardcoded parameters
 resource "aws_db_instance" "default" {
-  allocated_storage       = 30
+  allocated_storage       = 20
   storage_type            = "gp2"
   engine                  = "${var.engine}"
   engine_version          = "${var.engine_version}"
