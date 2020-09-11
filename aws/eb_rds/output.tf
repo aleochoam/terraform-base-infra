@@ -21,3 +21,7 @@ output "servers_sg_id" {
 output "eb_instance_profile" {
   value = "${module.server.eb-ec2-role}"
 }
+
+output "eb_endpoint" {
+  value = "${module.server.cname}"
+}
