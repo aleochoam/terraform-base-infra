@@ -11,18 +11,18 @@ rovider "aws" {
 
 # Create the bucket with website configuration
 module "website" {
-  source = "git@github.com:Wolox/terraform-base-infra.git//aws/cloudfront_website"
+  source = "git@github.com:aleochoam/terraform-base-infra.git//aws/cloudfront_website"
 
   # Bucket variables
   bucket_name               = "test-bucket"       # Mandatory
   bucket_index_document     = "index.html"        # Optional
   bucket_error_document     = "index.html"        # Optional
-  bucket_custom_domain      = ""                  # Optional, e.g. "mywebsite.wolox.com.ar"
+  bucket_custom_domain      = ""                  # Optional, e.g. "mywebsite.com.ar"
 
   # CloudFront variables
-  cf_certificate_domain     = ""                  # Optional, e.g. "*.wolox.com.ar"
+  cf_certificate_domain     = ""                  # Optional, e.g. "*.mywebsite.com.ar"
   cf_enabled                = true                # Optional
-  cf_aliases                = []                  # Optional, e.g. ["www.wolox.com.ar", "web.wolox.com.ar"]
+  cf_aliases                = []                  # Optional, e.g. ["www.mywebsite.com.ar", "web.mywebsite.com.ar"]
   cf_allowed_methods        = ["GET", "HEAD"]     # Optional
   cf_cached_methods         = ["GET", "HEAD"]     # Optional
   cf_forward_query_string   = true                # Optional

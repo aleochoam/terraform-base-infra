@@ -8,13 +8,13 @@ provider "aws" {
 
 # Create the beanstalk app
 module "app" {
-  source = "git@github.com:Wolox/terraform-base-infra.git//aws/elasticbeanstalk/application"
+  source = "git@github.com:aleochoam/terraform-base-infra.git//aws/elasticbeanstalk/application"
   application = "test-app"
 }
 
 # Create the environment
 module "env" {
-  source = "git@github.com:Wolox/terraform-base-infra.git//aws/eb_rds"
+  source = "git@github.com:aleochoam/terraform-base-infra.git//aws/eb_rds"
 
   aws_region = "us-east-1"                  # Mandatory
   aws_azs    = ["us-east-1a", "us-east-1b"] # Mandatory
@@ -41,7 +41,7 @@ module "env" {
 
 # Create the redis cluster
 module "cache" {
-  source                    = "git@github.com:Wolox/terraform-base-infra.git//aws/elasticache"
+  source                    = "git@github.com:aleochoam/terraform-base-infra.git//aws/elasticache"
   application               = "test-app"
   environment               = "development"
   azs                       = ["us-east-1a", "us-east-1b"]
