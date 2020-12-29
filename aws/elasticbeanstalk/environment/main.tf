@@ -60,7 +60,7 @@ resource "aws_elastic_beanstalk_environment" "env" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
-    value     = aws_iam_instance_profile.ec2-role.name
+    value     = aws_iam_instance_profile.ec2_role.name
   }
 
   setting {

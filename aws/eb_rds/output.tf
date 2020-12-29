@@ -19,7 +19,7 @@ output "servers_sg_id" {
 }
 
 output "eb_instance_profile" {
-  value = module.server.eb-ec2-role
+  value = module.server.eb-ec2_role
 }
 
 output "eb_endpoint" {
