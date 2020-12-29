@@ -37,13 +37,13 @@ data "aws_elastic_beanstalk_solution_stack" "docker_latest" {
 
 # Create the beanstalk app
 module "app" {
-  source = "git@github.com:Wolox/terraform-base-infra.git//aws/elasticbeanstalk/application"
+  source = "git@github.com:aleochoam/terraform-base-infra.git//aws/elasticbeanstalk/application"
   application = "test-app"
 }
 
 # Create the environment
 module "development" {
-  source = "git@github.com:Wolox/terraform-base-infra.git//aws/eb_rds"
+  source = "git@github.com:aleochoam/terraform-base-infra.git//aws/eb_rds"
 
   aws_region = "us-east-1"                  # Mandatory
   aws_azs    = ["us-east-1a", "us-east-1b"] # Mandatory
@@ -90,13 +90,13 @@ data "aws_elastic_beanstalk_solution_stack" "docker_latest" {
 
 # Create the beanstalk app
 module "app" {
-  source = "git@github.com:Wolox/terraform-base-infra.git//aws/elasticbeanstalk/application"
+  source = "git@github.com:aleochoam/terraform-base-infra.git//aws/elasticbeanstalk/application"
   application = "test-app"
 }
 
 # Create development environment
 module "development" {
-  source = "git@github.com:Wolox/terraform-base-infra.git//aws/eb_rds"
+  source = "git@github.com:aleochoam/terraform-base-infra.git//aws/eb_rds"
 
   aws_region = "us-east-1"                  # Mandatory
   aws_azs    = ["us-east-1a", "us-east-1b"] # Mandatory
@@ -122,7 +122,7 @@ module "development" {
 }
 
 module "production" {
-  source = "git@github.com:Wolox/terraform-base-infra.git//aws/eb_rds"
+  source = "git@github.com:aleochoam/terraform-base-infra.git//aws/eb_rds"
 
   aws_region = "us-east-1"                  # Mandatory
   aws_azs    = ["us-east-1a", "us-east-1b"] # Mandatory
@@ -163,12 +163,12 @@ provider "aws" {
 
 # Create the bucket with website configuration
 module "bucket" {
-  source = "git@github.com:Wolox/terraform-base-infra.git//aws/s3/website"
+  source = "git@github.com:aleochoam/terraform-base-infra.git//aws/s3/website"
 
   bucket_name          = "test-bucket" # Mandatory
   index_document       = "index.html"  # Optional
   error_document       = "index.html"  # Optional
-  bucket_custom_domain = ""            # Optional. For example 'mywebsite.wolox.com.ar'
+  bucket_custom_domain = ""            # Optional. For example 'mywebsite.com.ar'
 }
 ```
 

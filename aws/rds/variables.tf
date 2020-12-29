@@ -7,12 +7,15 @@ variable "security_group" {}
 variable "engine" {}
 variable "engine_version" {}
 
+variable "allocated_storage" {
+  default = 20
+}
 variable "azs" {
-  type = "list"
+  type = list(string)
 }
 
 variable "subnets" {
-  type = "list"
+  type = list(string)
 }
 
 variable "instance_type" {
@@ -21,9 +24,4 @@ variable "instance_type" {
 
 variable "multi_az" {
   default = false
-}
-
-resource "aws_db_subnet_group" "default" {
-  name       = "${var.application}-${var.environment}"
-  subnet_ids = ["${var.subnets}"]
 }
