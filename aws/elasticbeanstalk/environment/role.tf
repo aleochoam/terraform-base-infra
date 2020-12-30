@@ -1,6 +1,6 @@
 # EC2 instances
 resource "aws_iam_role" "ec2_role" {
-  name = "${var.application}-${var.environment}-ec2_role"
+  name = "${var.application}-${var.environment}-ec2-role"
 
   assume_role_policy = <<EOF
 {
@@ -21,7 +21,7 @@ EOF
 }
 
 resource "aws_iam_instance_profile" "ec2_role" {
-  name = "${var.application}-${var.environment}-eb-ec2_role"
+  name = "${var.application}-${var.environment}-eb-ec2-role"
   role = aws_iam_role.ec2_role.name
 }
 
