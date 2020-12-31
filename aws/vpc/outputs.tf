@@ -25,3 +25,7 @@ output "private_dbs_subnets" {
 output "dbs_sg_id" {
   value = aws_security_group.dbs.id
 }
+
+output "public_nacl_id" {
+  value = aws_network_acl.public_subnet.id
+}

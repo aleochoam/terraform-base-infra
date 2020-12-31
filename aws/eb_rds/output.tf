@@ -2,6 +2,10 @@ output "public_subnets" {
   value = var.public_subnets
 }
 
+output "public_nacl_id" {
+  value = module.vpc.public_nacl_id
+}
+
 output "dbs_private_subnets" {
   value = var.dbs_private_subnets
 }
