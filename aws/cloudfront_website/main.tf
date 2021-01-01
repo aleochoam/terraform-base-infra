@@ -9,7 +9,6 @@ module "bucket" {
   bucket_name          = var.bucket_name
   index_document       = var.bucket_index_document
   error_document       = var.bucket_error_document
-  bucket_custom_domain = var.bucket_custom_domain
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
@@ -61,8 +60,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cloudfront_default_certificate = !local.custom_certificate
 
     acm_certificate_arn      = local.custom_certificate ? element(concat(data.aws_acm_certificate.c.*.arn, list("")), 0) : ""
-    minimum_protocol_version = local.custom_certificate ? "TLSv1.1_2016" : "TLSv1"
-    ssl_support_method       = ""
+    minimum_protocol_version = local.custom_certificate ? "TLSv1.2_2019" : "TLSv1"
+    ssl_support_method       = local.custom_certificate ? "sni-only" : ""
   }
 
   restrictions {
