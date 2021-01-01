@@ -1,5 +1,5 @@
 data "aws_acm_certificate" "c" {
-  count  = var.bucket_custom_domain == "" ? 0 : 1
+  count  = var.cf_certificate_domain == "" ? 0 : 1
   domain = var.cf_certificate_domain
 }
 
@@ -12,10 +12,6 @@ variable "bucket_index_document" {
 
 variable "bucket_error_document" {
   default = "index.html"
-}
-
-variable "bucket_custom_domain" {
-  default = ""
 }
 
 # Cloudfront variables
