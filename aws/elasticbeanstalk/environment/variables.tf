@@ -40,3 +40,10 @@ variable "load_balancer_type" {
   default = "classic"
 }
 
+variable "env_vars" {
+  default = []
+  type = list(object({
+    name  = string,
+    value = string
+  }))
+}
