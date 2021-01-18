@@ -25,3 +25,9 @@ variable "instance_type" {
 variable "multi_az" {
   default = false
 }
+
+variable "backup_retention_period" {
+  type        = number
+  description = "Number of days of backups"
+  default     = 7
+}
