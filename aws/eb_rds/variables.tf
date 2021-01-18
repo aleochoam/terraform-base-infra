@@ -51,6 +51,12 @@ variable "rds_instance_type" {
   default = "db.t2.micro"
 }
 
+variable "rds_backup_retention_period" {
+  type        = number
+  description = "Number of days of database backups"
+  default     = 7
+}
+
 # EB Variables
 variable "eb_application" {
 }
@@ -77,13 +83,7 @@ variable "eb_stream_logs" {
   default = "false"
 }
 
-variable "backup_retention_period" {
-  type        = number
-  description = "Number of days of database backups"
-  default     = 7
-}
-
-variable "env_vars" {
+variable "eb_env_vars" {
   default = []
   type = list(object({
     name  = string,

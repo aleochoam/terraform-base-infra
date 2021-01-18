@@ -26,7 +26,7 @@ module "server" {
   # load_balancer_type  = "${var.eb_load_balancer_type}"
   instance_type = var.eb_instance_type
   stream_logs   = var.eb_stream_logs
-  env_vars      = var.env_vars
+  env_vars      = var.eb_env_vars
 }
 
 # Create the database
@@ -44,6 +44,6 @@ module "db" {
   engine                  = var.rds_engine
   engine_version          = var.rds_engine_version
   instance_type           = var.rds_instance_type
-  backup_retention_period = var.backup_retention_period
+  backup_retention_period = var.rds_backup_retention_period
 }
 
