@@ -82,3 +82,11 @@ variable "backup_retention_period" {
   description = "Number of days of database backups"
   default     = 7
 }
+
+variable "env_vars" {
+  default = []
+  type = list(object({
+    name  = string,
+    value = string
+  }))
+}

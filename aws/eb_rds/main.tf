@@ -26,6 +26,7 @@ module "server" {
   # load_balancer_type  = "${var.eb_load_balancer_type}"
   instance_type = var.eb_instance_type
   stream_logs   = var.eb_stream_logs
+  env_vars      = var.env_vars
 }
 
 # Create the database

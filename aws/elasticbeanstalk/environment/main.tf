@@ -92,5 +92,15 @@ resource "aws_elastic_beanstalk_environment" "env" {
     name      = "RetentionInDays"
     value     = "30"
   }
+
+  # Extra environment variables passed to the module
+  dynamic "setting" {
+    for_each = var.env_vars
+    content {
+      namespace = "aws:elasticbeanstalk:application:environment"
+      name      = setting.value["name"]
+      value     = setting.value["value"]
+    }
+  }
 }
 
