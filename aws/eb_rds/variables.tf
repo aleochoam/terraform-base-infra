@@ -76,3 +76,9 @@ variable "eb_instance_type" {
 variable "eb_stream_logs" {
   default = "false"
 }
+
+variable "backup_retention_period" {
+  type        = number
+  description = "Number of days of database backups"
+  default     = 7
+}

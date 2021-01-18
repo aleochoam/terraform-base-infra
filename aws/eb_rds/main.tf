@@ -30,18 +30,19 @@ module "server" {
 
 # Create the database
 module "db" {
-  source         = "../rds"
-  azs            = var.aws_azs
-  application    = var.eb_application
-  environment    = var.eb_environment
-  subnets        = module.vpc.private_dbs_subnets
-  username       = var.rds_username
-  password       = var.rds_password
-  db_name        = var.rds_db_name
-  security_group = module.vpc.dbs_sg_id
-  multi_az       = var.rds_multi_az
-  engine         = var.rds_engine
-  engine_version = var.rds_engine_version
-  instance_type  = var.rds_instance_type
+  source                  = "../rds"
+  azs                     = var.aws_azs
+  application             = var.eb_application
+  environment             = var.eb_environment
+  subnets                 = module.vpc.private_dbs_subnets
+  username                = var.rds_username
+  password                = var.rds_password
+  db_name                 = var.rds_db_name
+  security_group          = module.vpc.dbs_sg_id
+  multi_az                = var.rds_multi_az
+  engine                  = var.rds_engine
+  engine_version          = var.rds_engine_version
+  instance_type           = var.rds_instance_type
+  backup_retention_period = var.backup_retention_period
 }
 

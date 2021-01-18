@@ -17,7 +17,7 @@ resource "aws_db_instance" "default" {
   vpc_security_group_ids  = [var.security_group]
   skip_final_snapshot     = true
   identifier              = "${var.application}-${var.environment}"
-  backup_retention_period = 7
+  backup_retention_period = var.backup_retention_period
   apply_immediately       = true
   multi_az                = var.multi_az
 }
