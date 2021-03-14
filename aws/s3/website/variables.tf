@@ -7,3 +7,8 @@ variable "index_document" {
 variable "error_document" {
   default = "index.html"
 }
+
+variable "tags" {
+  type    = map(string)
+  default = {}
+}
