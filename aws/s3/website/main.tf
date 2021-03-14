@@ -33,4 +33,6 @@ EOF
     expose_headers  = ["Authorization"]
     max_age_seconds = 3000
   }
+
+  tags = var.tags
 }

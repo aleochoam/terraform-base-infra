@@ -62,3 +62,8 @@ variable "cf_max_ttl" {
 variable "cf_compress" {
   default = true
 }
+
+variable "tags" {
+  type    = map(string)
+  default = {}
+}

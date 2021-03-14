@@ -9,6 +9,7 @@ module "bucket" {
   bucket_name    = var.bucket_name
   index_document = var.bucket_index_document
   error_document = var.bucket_error_document
+  tags           = var.tags
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
@@ -69,4 +70,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       restriction_type = "none"
     }
   }
+
+  tags = var.tags
 }
