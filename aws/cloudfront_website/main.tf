@@ -1,27 +1,45 @@
 locals {
-  origin_id          = "S3-Website-${module.bucket.bucket_website_endpoint}"
+  origin_id          = "S3-Origin"
   custom_certificate = var.cf_certificate_domain == "" ? false : true
 }
 
-module "bucket" {
-  source = "../s3/website"
+resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
+  comment = "${var.bucket_name} OAI"
+}
 
-  bucket_name    = var.bucket_name
-  index_document = var.bucket_index_document
-  error_document = var.bucket_error_document
-  tags           = var.tags
+module "bucket" {
+  source = "../s3/bucket"
+
+  bucket_name = var.bucket_name
+  acl         = "private"
+  policy      = null
+  tags        = var.tags
+}
+
+data "aws_iam_policy_document" "s3_policy" {
+  statement {
+    actions   = ["s3:GetObject"]
+    resources = ["${module.bucket.bucket_arn}/*"]
+
+    principals {
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn]
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "example" {
+  bucket = module.bucket.bucket_id
+  policy = data.aws_iam_policy_document.s3_policy.json
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = module.bucket.bucket_website_endpoint
+    domain_name = module.bucket.bucket_regional_domain_name
     origin_id   = local.origin_id
 
-    custom_origin_config {
-      origin_protocol_policy = "http-only"
-      http_port              = "80"
-      https_port             = "443"
-      origin_ssl_protocols   = ["TLSv1"]
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path
     }
   }
 
