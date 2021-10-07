@@ -8,7 +8,6 @@ variable "acl" {
   default = "public-read"
 }
 
-variable "tags" {
-  type    = map(string)
-  default = {}
+variable "cors" {
+  default = false
 }

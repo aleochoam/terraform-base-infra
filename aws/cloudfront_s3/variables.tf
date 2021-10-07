@@ -1,16 +1,10 @@
-data "aws_acm_certificate" "c" {
-  count  = var.cf_certificate_domain == "" ? 0 : 1
-  domain = var.cf_certificate_domain
-}
+# Indicates if the module will be used for assets of for a website
+variable "is_website" {}
 
 # Bucket variables
 variable "bucket_name" {}
 
-variable "bucket_index_document" {
-  default = "index.html"
-}
-
-variable "bucket_error_document" {
+variable "index_document" {
   default = "index.html"
 }
 
@@ -47,23 +41,14 @@ variable "cf_viewer_protocol_policy" {
   default = "redirect-to-https"
 }
 
-variable "cf_min_ttl" {
-  default = 0
-}
-
-variable "cf_default_ttl" {
-  default = 86400
-}
-
-variable "cf_max_ttl" {
-  default = 31536000
-}
-
 variable "cf_compress" {
   default = true
 }
 
-variable "tags" {
-  type    = map(string)
-  default = {}
+variable "cf_cache_policy" {
+  default = "CachingOptimized"
+}
+
+variable "cf_request_policy" {
+  default = "CORS-S3Origin"
 }
