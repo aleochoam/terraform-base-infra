@@ -1,10 +1,10 @@
-variable project_id {} # Required
-variable region {      # https://cloud.google.com/appengine/docs/locations
+variable "project_id" {} # Required
+variable "region" {      # https://cloud.google.com/appengine/docs/locations
   default = "us-east1"
 }
 
 resource "google_project_service" "project" {
-  project = "${var.project_id}"
+  project = var.project_id
   service = "run.googleapis.com"
 
   disable_dependent_services = true
@@ -12,12 +12,12 @@ resource "google_project_service" "project" {
 
 resource "google_cloud_run_service" "default" {
   name     = "tftest-cloudrun"
-  location = "${var.region}"
+  location = var.region
   provider = "google-beta"
-  project  = "${var.project_id}"
+  project  = var.project_id
 
   metadata {
-    namespace = "${var.project_id}"
+    namespace = var.project_id
   }
 
   spec {

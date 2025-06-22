@@ -1,9 +1,9 @@
 data "google_compute_zones" "available" {}
 
-variable project_id {}
+variable "project_id" {}
 
 resource "google_project_service" "project" {
-  project = "${var.project_id}"
+  project = var.project_id
   service = "compute.googleapis.com"
 
   disable_dependent_services = true
@@ -11,8 +11,8 @@ resource "google_project_service" "project" {
 
 
 resource "google_compute_instance" "default" {
-  project      = "${var.project_id}"
-  zone         = "${data.google_compute_zones.available.names[0]}"
+  project      = var.project_id
+  zone         = data.google_compute_zones.available.names[0]
   name         = "tf-compute-1"
   machine_type = "f1-micro"
   boot_disk {
@@ -31,5 +31,5 @@ resource "google_compute_instance" "default" {
 }
 
 output "instance_id" {
-  value = "${google_compute_instance.default.self_link}"
+  value = google_compute_instance.default.self_link
 }
