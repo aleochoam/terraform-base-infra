@@ -4,7 +4,7 @@ data "aws_acm_certificate" "c" {
 }
 
 data "aws_cloudfront_origin_request_policy" "request_policy" {
-  name = "SPA-ORP"
+  name = "Managed-CORS-S3Origin"
 }
 
 resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
@@ -81,13 +81,14 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cloudfront_default_certificate = !local.custom_certificate
 
     acm_certificate_arn      = local.custom_certificate ? data.aws_acm_certificate.c[0].arn : ""
-    minimum_protocol_version = local.custom_certificate ? "TLSv1.2_2019" : "TLSv1"
+    minimum_protocol_version = local.custom_certificate ? "TLSv1.2_2021" : "TLSv1"
     ssl_support_method       = local.custom_certificate ? "sni-only" : ""
   }
 
   restrictions {
     geo_restriction {
-      restriction_type = "none"
+      restriction_type = "whitelist"
+      locations        = ["CO"]
     }
   }
 }

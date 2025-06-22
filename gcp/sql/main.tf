@@ -1,12 +1,12 @@
 resource "google_project_service" "servicenetworking" {
-  project = "${var.project_id}"
+  project = var.project_id
   service = "servicenetworking.googleapis.com"
 
   disable_dependent_services = true
 }
 
 resource "google_project_service" "compute" {
-  project = "${var.project_id}"
+  project = var.project_id
   service = "compute.googleapis.com"
 
   disable_dependent_services = true
@@ -14,7 +14,7 @@ resource "google_project_service" "compute" {
 
 resource "google_compute_global_address" "private_ip_address" {
   provider = google-beta
-  project  = "${var.project_id}"
+  project  = var.project_id
 
   name          = "private-ip-address"
   purpose       = "VPC_PEERING"
@@ -37,17 +37,17 @@ resource "google_service_networking_connection" "private_vpc_connection" {
 
 
 resource "google_project_service" "vpcaccess" {
-  project = "${var.project_id}"
+  project = var.project_id
   service = "vpcaccess.googleapis.com"
 
   disable_dependent_services = true
 }
 
 resource "google_vpc_access_connector" "connector" {
-  project       = "${var.project_id}"
+  project       = var.project_id
   name          = "my-connector"
   provider      = google-beta
-  region        = "${var.region}"
+  region        = var.region
   ip_cidr_range = "10.8.0.0/28"
   network       = "default"
 
@@ -55,14 +55,14 @@ resource "google_vpc_access_connector" "connector" {
 }
 
 resource "google_project_service" "project" {
-  project = "${var.project_id}"
+  project = var.project_id
   service = "sqladmin.googleapis.com"
 
   disable_dependent_services = true
 }
 
 resource "google_project_service" "sql_component" {
-  project = "${var.project_id}"
+  project = var.project_id
   service = "sql-component.googleapis.com"
 
   disable_dependent_services = true
@@ -74,11 +74,11 @@ resource "random_id" "db_name_suffix" {
 
 resource "google_sql_database_instance" "instance" {
   provider = google-beta
-  project  = "${var.project_id}"
+  project  = var.project_id
 
   name             = "db-${var.project_id}-${random_id.db_name_suffix.hex}"
-  database_version = "${var.database_version}"
-  region           = "${var.region}"
+  database_version = var.database_version
+  region           = var.region
 
   depends_on = ["google_project_service.project", "google_project_service.servicenetworking", "google_service_networking_connection.private_vpc_connection"]
 
@@ -92,14 +92,14 @@ resource "google_sql_database_instance" "instance" {
 }
 
 resource "google_sql_user" "users" {
-  project  = "${var.project_id}"
-  name     = "${var.db_username}"
+  project  = var.project_id
+  name     = var.db_username
   instance = google_sql_database_instance.instance.name
-  password = "${var.db_password}"
+  password = var.db_password
 }
 
 resource "google_sql_database" "database" {
-  project  = "${var.project_id}"
-  name     = "${var.db_database_name}"
+  project  = var.project_id
+  name     = var.db_database_name
   instance = google_sql_database_instance.instance.name
 }
